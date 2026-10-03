@@ -2,40 +2,40 @@
 
 ## (1) Screenshot of your local lab03/uploader-app/ and lab03/viewer-app/ folders showing app.js and package.json in each.
 
-![Screenshot 1](./Images/1st_SC.png)
+![Screenshot 1](./images/1st_SC.png)
 
 ## (2) Screenshot of the Uploader page and a successful upload confirmation.
 
-![Screenshot 2](./Images/upload_SC.png)
-![Screenshot 3](./Images/uploaded_SC.png)
+![Screenshot 2](./images/upload_SC.png)
+![Screenshot 3](./images/uploaded_SC.png)
 
 ## (3) Screenshot of attempting to upload a non- .txt file (e.g., a .jpg or .pdf ), showing the “only .txt files are allowed” error.
 
-![Screenshot 4](./Images/upload_error_SC.png)
+![Screenshot 4](./images/upload_error_SC.png)
 
 ## (4) Screenshot of the Viewer page displaying the uploaded file’s content
 
-![Screenshot 5](./Images/viewer_page_SC.png)
+![Screenshot 5](./images/viewer_page_SC.png)
 
 ## (5) Screenshot of aws ec2 describe-launch-templates showing both templates.
 
-![Screenshot 6](./Images/LT_SC.png)
+![Screenshot 6](./images/LT_SC.png)
 
 ## (6) Screenshot of aws ec2 describe-launch-template-versions --launch-template-name <uploader-lt-name> after re-running the create script twice, showing more than one version.
 
-![Screenshot 7](./Images/LT_version_SC.png)
+![Screenshot 7](./images/LT_version_SC.png)
 
 ## (7) aws iam get-role-policy output (or screenshot) for both roles, showing each has only its one intended action on the exact shared.txt key.
 
-![Screenshot 8](./Images/policies_SC.png)
+![Screenshot 8](./images/policies_SC.png)
 
 ## (8) Screenshot of create_app_stack.sh output showing both instances running with public IPs.
 
-![Screenshot 9](./Images/create_stack_SC.png)
+![Screenshot 9](./images/create_stack_SC.png)
 
 ## (9) Screenshot of delete_app_stack.sh completing with no errors.
 
-![Screenshot 10](./Images/delete_stack_SC.png)
+![Screenshot 10](./images/delete_stack_SC.png)
 
 ## (10) One paragraph explaining why the uploader and viewer use separate IAM roles instead of one shared role with both permissions.
 
