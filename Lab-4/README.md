@@ -22,7 +22,7 @@ CSV log: [chaos_test_uploader_1792282495.csv](./testing/chaos_test_uploader_1792
 
 ## (5) The CSV poll log and console output from a run that failed a tightened SLO.
 
-Viewer tier, SLO tightened to 60s (`--slo-seconds 60`): recovered in 74.3s, **FAIL**.
+Viewer tier, SLO tightened to 60s: recovered in 74.3s, **FAIL**.
 
 ![Screenshot 5](./images/chaos_fail_SC.png)
 
