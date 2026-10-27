@@ -1,0 +1,15 @@
+Found credentials in shared credentials file: ~/.aws/credentials
+== Auto Scaling Groups (this also terminates their instances) ==
+Deleted Auto Scaling Group itmo-444-544-viewer-asg
+== Load balancer and target groups ==
+Deleted target group itmo-444-544-uploader-tg
+Deleted target group itmo-444-544-viewer-tg
+== Security groups ==
+Deleted ALB security group sg-0c80e5926281ad60b
+== Launch templates, IAM, bucket ==
+Deleted launch template itmo-544-uploader-lt
+Removed uploader role and instance profile.
+Deleted launch template itmo-544-viewer-lt
+Removed viewer role and instance profile.
+Deleted bucket itmo-544-cesar2005-fileshare
+Cleanup complete.

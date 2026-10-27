@@ -1,0 +1,25 @@
+### Experiment 1: uploader policy s3:PutObject -> s3:*
+28:            "Action": ["s3:*"],
+>       assert _allowed_actions(policy) == ["s3:PutObject"]
+E       AssertionError: assert ['s3:*'] == ['s3:PutObject']
+FAILED tests/unit/test_policies.py::test_uploader_can_only_put_one_object - A...
+1 failed, 18 passed in 8.10s
+
+### Experiment 2: HealthCheckType ELB -> EC2
+29:        HealthCheckType="EC2",
+        assert all(block.values())
+            assert role_policy["PolicyDocument"]["Statement"]
+            assert [r["RoleName"] for r in profile["InstanceProfile"]["Roles"]] == [tier.role_name]
+            assert aws.ec2.describe_launch_templates(LaunchTemplateNames=[tier.lt_name])["LaunchTemplates"]
+            assert (group["MinSize"], group["MaxSize"], group["DesiredCapacity"]) == (1, 1, 1)
+>           assert group["HealthCheckType"] == "ELB"
+E           AssertionError: assert 'EC2' == 'ELB'
+FAILED tests/unit/test_stack_with_moto.py::test_create_builds_every_resource
+
+### Experiment 3: comment out restrict_app_security_group in runner.py
+35:    # network.restrict_app_security_group(aws, settings, alb_sg_id)
+        assert len(rules) == 1
+>       assert rules[0]["IpRanges"] == []
+E       AssertionError: assert [{'CidrIp': '0.0.0.0/0'}] == []
+FAILED tests/unit/test_stack_with_moto.py::test_app_security_group_only_accepts_the_alb
+1 failed, 18 passed in 8.36s

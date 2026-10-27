@@ -1,0 +1,22 @@
+Found credentials in shared credentials file: ~/.aws/credentials
+== Auto Scaling Groups (this also terminates their instances) ==
+itmo-444-544-uploader-asg still deleting after 300s. Check the console.
+itmo-444-544-viewer-asg still deleting after 300s. Check the console.
+== Load balancer and target groups ==
+Deleted load balancer itmo-444-544-app-alb
+Traceback (most recent call last):
+  File "/home/ITMO_544/Lab-5/delete_stack.py", line 23, in <module>
+    main()
+  File "/home/ITMO_544/Lab-5/delete_stack.py", line 19, in main
+    delete_stack(settings, AwsClients.create(settings.region), keep_foundation=args.keep_foundation)
+  File "/home/ITMO_544/Lab-5/stack/runner.py", line 65, in delete_stack
+    balancer.delete_target_group(aws, tier.tg_name)
+  File "/home/ITMO_544/Lab-5/stack/balancer.py", line 92, in delete_target_group
+    aws.elbv2.delete_target_group(TargetGroupArn=arn)
+  File "/home/ITMO_544/Lab-5/.venv/lib/python3.10/site-packages/botocore/client.py", line 606, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+  File "/home/ITMO_544/Lab-5/.venv/lib/python3.10/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+  File "/home/ITMO_544/Lab-5/.venv/lib/python3.10/site-packages/botocore/client.py", line 1094, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.ResourceInUseException: An error occurred (ResourceInUse) when calling the DeleteTargetGroup operation: Target group 'arn:aws:elasticloadbalancing:us-east-2:225989339862:targetgroup/itmo-444-544-uploader-tg/8c36664669ffa555' is currently in use by a listener or a rule

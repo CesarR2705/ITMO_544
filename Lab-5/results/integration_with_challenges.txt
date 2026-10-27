@@ -1,0 +1,50 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.7.0 -- /home/ITMO_544/Lab-5/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/ITMO_544/Lab-5
+configfile: pytest.ini
+testpaths: tests
+collecting ... collected 41 items / 24 deselected / 17 selected
+
+tests/integration/test_application.py::test_uploader_serves_its_form PASSED [  5%]
+tests/integration/test_application.py::test_viewer_serves_its_page PASSED [ 11%]
+tests/integration/test_application.py::test_text_file_uploaded_on_one_tier_appears_on_the_other PASSED [ 17%]
+tests/integration/test_application.py::test_non_txt_file_is_rejected PASSED [ 23%]
+tests/integration/test_application.py::test_file_over_1mb_is_rejected PASSED [ 29%]
+tests/integration/test_challenges.py::test_launch_template_tags_instances_with_the_tier_name[uploader] PASSED [ 35%]
+tests/integration/test_challenges.py::test_launch_template_tags_instances_with_the_tier_name[viewer] PASSED [ 41%]
+tests/integration/test_challenges.py::test_ssh_is_not_open_to_the_world FAILED [ 47%]
+tests/integration/test_infrastructure.py::test_bucket_blocks_all_public_access PASSED [ 52%]
+tests/integration/test_infrastructure.py::test_uploader_role_can_only_write_the_shared_object PASSED [ 58%]
+tests/integration/test_infrastructure.py::test_viewer_role_can_read_but_not_write PASSED [ 64%]
+tests/integration/test_infrastructure.py::test_load_balancer_is_public_and_spans_two_azs PASSED [ 70%]
+tests/integration/test_infrastructure.py::test_listeners_forward_to_the_right_target_groups PASSED [ 76%]
+tests/integration/test_infrastructure.py::test_target_groups_use_fast_health_checks PASSED [ 82%]
+tests/integration/test_infrastructure.py::test_auto_scaling_groups_are_configured_for_recovery PASSED [ 88%]
+tests/integration/test_infrastructure.py::test_app_port_is_reachable_only_from_the_load_balancer PASSED [ 94%]
+tests/integration/test_infrastructure.py::test_every_target_becomes_healthy PASSED [100%]
+
+=================================== FAILURES ===================================
+______________________ test_ssh_is_not_open_to_the_world _______________________
+
+aws = AwsClients(s3=<botocore.client.S3 object at 0xffffb5773b20>, iam=<botocore.client.IAM object at 0xffffb5485450>, ec2=<...t.ElasticLoadBalancingv2 object at 0xffffb4b1f280>, autoscaling=<botocore.client.AutoScaling object at 0xffffb499c850>)
+settings = Settings(region='us-east-2', ami_id='ami-0d3d85815a9746bc5', key_name='ITMO-544-lab-keypair', instance_type='t3.micro'...me='itmo-444-544-viewer-asg', listener_port=8081, app_dir=PosixPath('/home/ITMO_544/Lab-5/viewer-app')), app_port=3000)
+
+    def test_ssh_is_not_open_to_the_world(aws, settings):
+        """Challenge 4: drift check. Fails if anyone adds 0.0.0.0/0 on port 22 to the app SG."""
+        group = aws.ec2.describe_security_groups(GroupIds=[settings.app_sg_id])["SecurityGroups"][0]
+        for rule in group["IpPermissions"]:
+            if rule.get("IpProtocol") == "-1":
+                covers_22 = True
+            else:
+                covers_22 = rule.get("FromPort", 0) <= 22 <= rule.get("ToPort", 65535)
+            if covers_22:
+                cidrs = [r["CidrIp"] for r in rule.get("IpRanges", [])]
+>               assert "0.0.0.0/0" not in cidrs, f"port 22 is open to the world: {rule}"
+E               AssertionError: port 22 is open to the world: {'IpProtocol': 'tcp', 'FromPort': 22, 'ToPort': 22, 'UserIdGroupPairs': [], 'IpRanges': [{'CidrIp': '0.0.0.0/0'}], 'Ipv6Ranges': [], 'PrefixListIds': []}
+E               assert '0.0.0.0/0' not in ['0.0.0.0/0']
+
+tests/integration/test_challenges.py:27: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_challenges.py::test_ssh_is_not_open_to_the_world
+================= 1 failed, 16 passed, 24 deselected in 4.23s ==================

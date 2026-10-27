@@ -1,0 +1,94 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.7.0 -- /home/ITMO_544/Lab-5/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/ITMO_544/Lab-5
+configfile: pytest.ini
+testpaths: tests
+collecting ... collected 41 items / 39 deselected / 2 selected
+
+tests/integration/test_recovery.py::test_tier_recovers_within_the_slo[uploader] 
+uploader: terminated i-0e9c51de5fb654f5a, recovery took 79.13289308547974s (SLO 60s)
+FAILED
+tests/integration/test_recovery.py::test_tier_recovers_within_the_slo[viewer] 
+viewer: terminated i-0cb88f184239a1f49, recovery took 70.9906439781189s (SLO 60s)
+FAILED
+
+=================================== FAILURES ===================================
+_________________ test_tier_recovers_within_the_slo[uploader] __________________
+
+aws = AwsClients(s3=<botocore.client.S3 object at 0xffff9334f220>, iam=<botocore.client.IAM object at 0xffff93068b50>, ec2=<...t.ElasticLoadBalancingv2 object at 0xffff924f28f0>, autoscaling=<botocore.client.AutoScaling object at 0xffff92527e80>)
+settings = Settings(region='us-east-2', ami_id='ami-0d3d85815a9746bc5', key_name='ITMO-544-lab-keypair', instance_type='t3.micro'...me='itmo-444-544-viewer-asg', listener_port=8081, app_dir=PosixPath('/home/ITMO_544/Lab-5/viewer-app')), app_port=3000)
+outputs = StackOutputs(vpc_id='vpc-052ad9b0e389716d1', subnet_a='subnet-0d3bc82dd19fe5670', subnet_b='subnet-0b6dbbcfc4702ae15',...iewer_tg_arn='arn:aws:elasticloadbalancing:us-east-2:225989339862:targetgroup/itmo-444-544-viewer-tg/03b6faca28d58104')
+tier_name = 'uploader'
+
+    @pytest.mark.parametrize("tier_name", ["uploader", "viewer"])
+    def test_tier_recovers_within_the_slo(aws, settings, outputs, tier_name):
+        tier = settings.tier(tier_name)
+        url = tier_url(outputs, settings, tier_name)
+        assert probe(url), "the endpoint must be healthy before the experiment starts"
+        victim = _in_service_instance(aws, tier.asg_name)
+        assert victim, f"no in-service instance in {tier.asg_name}"
+    
+        aws.autoscaling.terminate_instance_in_auto_scaling_group(
+            InstanceId=victim, ShouldDecrementDesiredCapacity=False)
+        started = time.time()
+        saw_outage, recovered_after = False, None
+        while time.time() - started < settings.recovery_slo_seconds * 2:
+            if probe(url, timeout=2):
+                if saw_outage:
+                    recovered_after = time.time() - started
+                    break
+            else:
+                saw_outage = True
+            time.sleep(2)
+    
+        print(f"\n{tier_name}: terminated {victim}, recovery took {recovered_after}s "
+              f"(SLO {settings.recovery_slo_seconds}s)")
+        assert saw_outage, "the endpoint never went down, so there was nothing to recover from"
+        assert recovered_after is not None, "the endpoint did not come back in time"
+>       assert recovered_after <= settings.recovery_slo_seconds
+E       AssertionError: assert 79.13289308547974 <= 60
+E        +  where 60 = Settings(region='us-east-2', ami_id='ami-0d3d85815a9746bc5', key_name='ITMO-544-lab-keypair', instance_type='t3.micro', bucket_name='itmo-544-cesar2005-fileshare', app_sg_id='sg-007b6b4eab3f471c6', alb_name='itmo-444-544-app-alb', alb_sg_name='itmo-444-544-alb-sg', az_a='us-east-2a', az_b='us-east-2b', recovery_slo_seconds=60, uploader=Tier(name='uploader', role_name='itmo-544-uploader-role', profile_name='itmo-544-uploader-profile', lt_name='itmo-544-uploader-lt', tg_name='itmo-444-544-uploader-tg', asg_name='itmo-444-544-uploader-asg', listener_port=8080, app_dir=PosixPath('/home/ITMO_544/Lab-5/uploader-app')), viewer=Tier(name='viewer', role_name='itmo-544-viewer-role', profile_name='itmo-544-viewer-profile', lt_name='itmo-544-viewer-lt', tg_name='itmo-444-544-viewer-tg', asg_name='itmo-444-544-viewer-asg', listener_port=8081, app_dir=PosixPath('/home/ITMO_544/Lab-5/viewer-app')), app_port=3000).recovery_slo_seconds
+
+tests/integration/test_recovery.py:48: AssertionError
+__________________ test_tier_recovers_within_the_slo[viewer] ___________________
+
+aws = AwsClients(s3=<botocore.client.S3 object at 0xffff9334f220>, iam=<botocore.client.IAM object at 0xffff93068b50>, ec2=<...t.ElasticLoadBalancingv2 object at 0xffff924f28f0>, autoscaling=<botocore.client.AutoScaling object at 0xffff92527e80>)
+settings = Settings(region='us-east-2', ami_id='ami-0d3d85815a9746bc5', key_name='ITMO-544-lab-keypair', instance_type='t3.micro'...me='itmo-444-544-viewer-asg', listener_port=8081, app_dir=PosixPath('/home/ITMO_544/Lab-5/viewer-app')), app_port=3000)
+outputs = StackOutputs(vpc_id='vpc-052ad9b0e389716d1', subnet_a='subnet-0d3bc82dd19fe5670', subnet_b='subnet-0b6dbbcfc4702ae15',...iewer_tg_arn='arn:aws:elasticloadbalancing:us-east-2:225989339862:targetgroup/itmo-444-544-viewer-tg/03b6faca28d58104')
+tier_name = 'viewer'
+
+    @pytest.mark.parametrize("tier_name", ["uploader", "viewer"])
+    def test_tier_recovers_within_the_slo(aws, settings, outputs, tier_name):
+        tier = settings.tier(tier_name)
+        url = tier_url(outputs, settings, tier_name)
+        assert probe(url), "the endpoint must be healthy before the experiment starts"
+        victim = _in_service_instance(aws, tier.asg_name)
+        assert victim, f"no in-service instance in {tier.asg_name}"
+    
+        aws.autoscaling.terminate_instance_in_auto_scaling_group(
+            InstanceId=victim, ShouldDecrementDesiredCapacity=False)
+        started = time.time()
+        saw_outage, recovered_after = False, None
+        while time.time() - started < settings.recovery_slo_seconds * 2:
+            if probe(url, timeout=2):
+                if saw_outage:
+                    recovered_after = time.time() - started
+                    break
+            else:
+                saw_outage = True
+            time.sleep(2)
+    
+        print(f"\n{tier_name}: terminated {victim}, recovery took {recovered_after}s "
+              f"(SLO {settings.recovery_slo_seconds}s)")
+        assert saw_outage, "the endpoint never went down, so there was nothing to recover from"
+        assert recovered_after is not None, "the endpoint did not come back in time"
+>       assert recovered_after <= settings.recovery_slo_seconds
+E       AssertionError: assert 70.9906439781189 <= 60
+E        +  where 60 = Settings(region='us-east-2', ami_id='ami-0d3d85815a9746bc5', key_name='ITMO-544-lab-keypair', instance_type='t3.micro', bucket_name='itmo-544-cesar2005-fileshare', app_sg_id='sg-007b6b4eab3f471c6', alb_name='itmo-444-544-app-alb', alb_sg_name='itmo-444-544-alb-sg', az_a='us-east-2a', az_b='us-east-2b', recovery_slo_seconds=60, uploader=Tier(name='uploader', role_name='itmo-544-uploader-role', profile_name='itmo-544-uploader-profile', lt_name='itmo-544-uploader-lt', tg_name='itmo-444-544-uploader-tg', asg_name='itmo-444-544-uploader-asg', listener_port=8080, app_dir=PosixPath('/home/ITMO_544/Lab-5/uploader-app')), viewer=Tier(name='viewer', role_name='itmo-544-viewer-role', profile_name='itmo-544-viewer-profile', lt_name='itmo-544-viewer-lt', tg_name='itmo-444-544-viewer-tg', asg_name='itmo-444-544-viewer-asg', listener_port=8081, app_dir=PosixPath('/home/ITMO_544/Lab-5/viewer-app')), app_port=3000).recovery_slo_seconds
+
+tests/integration/test_recovery.py:48: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_recovery.py::test_tier_recovers_within_the_slo[uploader]
+FAILED tests/integration/test_recovery.py::test_tier_recovers_within_the_slo[viewer]
+================= 2 failed, 39 deselected in 151.51s (0:02:31) =================

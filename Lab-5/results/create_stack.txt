@@ -1,0 +1,21 @@
+Found credentials in shared credentials file: ~/.aws/credentials
+== S3 bucket ==
+Created bucket itmo-544-cesar2005-fileshare
+== IAM roles and instance profiles ==
+uploader role and instance profile are ready.
+viewer role and instance profile are ready.
+Waiting 15s for IAM propagation...
+== Launch templates ==
+Created launch template itmo-544-uploader-lt
+Created launch template itmo-544-viewer-lt
+== Network ==
+Created ALB security group sg-0c80e5926281ad60b
+== Target groups, load balancer, listeners ==
+Waiting for the ALB to become active...
+== Auto Scaling Groups ==
+Created Auto Scaling Group itmo-444-544-uploader-asg
+Created Auto Scaling Group itmo-444-544-viewer-asg
+
+Uploader: http://itmo-444-544-app-alb-1498384929.us-east-2.elb.amazonaws.com:8080/
+Viewer:   http://itmo-444-544-app-alb-1498384929.us-east-2.elb.amazonaws.com:8081/
+Give the target groups 1 to 2 minutes to report healthy, then run: pytest -m integration

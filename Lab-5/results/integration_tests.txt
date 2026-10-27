@@ -1,0 +1,24 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.7.0 -- /home/ITMO_544/Lab-5/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/ITMO_544/Lab-5
+configfile: pytest.ini
+testpaths: tests
+collecting ... collected 41 items / 27 deselected / 14 selected
+
+tests/integration/test_application.py::test_uploader_serves_its_form PASSED [  7%]
+tests/integration/test_application.py::test_viewer_serves_its_page PASSED [ 14%]
+tests/integration/test_application.py::test_text_file_uploaded_on_one_tier_appears_on_the_other PASSED [ 21%]
+tests/integration/test_application.py::test_non_txt_file_is_rejected PASSED [ 28%]
+tests/integration/test_application.py::test_file_over_1mb_is_rejected PASSED [ 35%]
+tests/integration/test_infrastructure.py::test_bucket_blocks_all_public_access PASSED [ 42%]
+tests/integration/test_infrastructure.py::test_uploader_role_can_only_write_the_shared_object PASSED [ 50%]
+tests/integration/test_infrastructure.py::test_viewer_role_can_read_but_not_write PASSED [ 57%]
+tests/integration/test_infrastructure.py::test_load_balancer_is_public_and_spans_two_azs PASSED [ 64%]
+tests/integration/test_infrastructure.py::test_listeners_forward_to_the_right_target_groups PASSED [ 71%]
+tests/integration/test_infrastructure.py::test_target_groups_use_fast_health_checks PASSED [ 78%]
+tests/integration/test_infrastructure.py::test_auto_scaling_groups_are_configured_for_recovery PASSED [ 85%]
+tests/integration/test_infrastructure.py::test_app_port_is_reachable_only_from_the_load_balancer PASSED [ 92%]
+tests/integration/test_infrastructure.py::test_every_target_becomes_healthy PASSED [100%]
+
+====================== 14 passed, 27 deselected in 3.52s =======================

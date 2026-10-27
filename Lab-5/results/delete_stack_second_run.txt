@@ -1,0 +1,8 @@
+Found credentials in shared credentials file: ~/.aws/credentials
+== Auto Scaling Groups (this also terminates their instances) ==
+== Load balancer and target groups ==
+== Security groups ==
+== Launch templates, IAM, bucket ==
+Removed uploader role and instance profile.
+Removed viewer role and instance profile.
+Cleanup complete.

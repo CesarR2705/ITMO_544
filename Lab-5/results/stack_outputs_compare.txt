@@ -1,0 +1,12 @@
+--- Lab-5 (Python) stack_outputs.env
+VPC_ID=vpc-052ad9b0e389716d1
+SUBNET_A=subnet-0d3bc82dd19fe5670
+SUBNET_B=subnet-0b6dbbcfc4702ae15
+ALB_SECURITY_GROUP_ID=sg-0c80e5926281ad60b
+ALB_ARN=arn:aws:elasticloadbalancing:us-east-2:225989339862:loadbalancer/app/itmo-444-544-app-alb/6fe1bc1752f12d8f
+ALB_DNS_NAME=itmo-444-544-app-alb-1498384929.us-east-2.elb.amazonaws.com
+UPLOADER_TG_ARN=arn:aws:elasticloadbalancing:us-east-2:225989339862:targetgroup/itmo-444-544-uploader-tg/8c36664669ffa555
+VIEWER_TG_ARN=arn:aws:elasticloadbalancing:us-east-2:225989339862:targetgroup/itmo-444-544-viewer-tg/03b6faca28d58104
+
+--- Lab-4 (bash) stack_outputs.env
+(not present: Lab-4 stack was deleted, delete_app_stack.sh removed it)

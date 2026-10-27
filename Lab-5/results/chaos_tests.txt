@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-9.1.1, pluggy-1.7.0 -- /home/ITMO_544/Lab-5/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/ITMO_544/Lab-5
+configfile: pytest.ini
+testpaths: tests
+collecting ... collected 41 items / 39 deselected / 2 selected
+
+tests/integration/test_recovery.py::test_tier_recovers_within_the_slo[uploader] 
+uploader: terminated i-01efd3742f162272c, recovery took 69.90259838104248s (SLO 180s)
+PASSED
+tests/integration/test_recovery.py::test_tier_recovers_within_the_slo[viewer] 
+viewer: terminated i-0a767a16ae686e597, recovery took 74.37362241744995s (SLO 180s)
+PASSED
+
+================= 2 passed, 39 deselected in 145.42s (0:02:25) =================
