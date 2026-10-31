@@ -1,0 +1,11 @@
+Found credentials in shared credentials file: ~/.aws/credentials
+== The database (no final snapshot, no kept backups) ==
+Database itmo-444-544-weather-db not found, nothing to delete.
+== DB subnet group ==
+== Database security group ==
+== Database password parameter ==
+Database removed.
+
+RDS instances remaining: []
+RDS snapshots remaining: []
+RDS automated backups remaining: []

@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+collecting ... collected 58 items / 56 deselected / 2 selected
+
+tests/integration/test_recovery.py::test_forecast_survives_losing_the_database 
+with the database cut off: 200, cache=unavailable
+PASSED
+tests/integration/test_recovery.py::test_advisor_fails_fast_while_the_weather_tier_recovers 
+terminated i-0dcdff299da28b358, advisor said [502], recovery took 74.04458045959473s (limit 300s)
+PASSED
+
+================= 2 passed, 56 deselected in 113.52s (0:01:53) =================

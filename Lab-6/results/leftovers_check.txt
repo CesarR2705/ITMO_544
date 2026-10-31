@@ -1,0 +1,20 @@
+aws rds describe-db-instances --query DBInstances[].DBInstanceIdentifier
+[]
+aws rds describe-db-snapshots --query DBSnapshots[].DBSnapshotIdentifier
+[]
+aws rds describe-db-instance-automated-backups --query DBInstanceAutomatedBackups[].DBInstanceIdentifier
+[]
+aws elbv2 describe-load-balancers --query LoadBalancers[].LoadBalancerName
+[]
+aws elbv2 describe-target-groups --query TargetGroups[].TargetGroupName
+[]
+aws autoscaling describe-auto-scaling-groups --query AutoScalingGroups[].AutoScalingGroupName
+[]
+aws ec2 describe-launch-templates --query LaunchTemplates[].LaunchTemplateName
+[]
+lab roles:
+[]
+running lab instances:
+[]
+parameters:
+["/itmo-444-544/gemini-api-key"]

@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+collecting ... collected 58 items / 45 deselected / 13 selected
+
+tests/integration/test_application.py::test_second_lookup_is_a_miss_then_a_hit_and_lands_in_history PASSED [  7%]
+tests/integration/test_application.py::test_a_bad_zip_is_400 PASSED      [ 15%]
+tests/integration/test_application.py::test_an_unknown_zip_is_404 PASSED [ 23%]
+tests/integration/test_application.py::test_advice_comes_back_labelled_with_its_source PASSED [ 30%]
+tests/integration/test_application.py::test_advisor_rejects_a_bad_zip PASSED [ 38%]
+tests/integration/test_application.py::test_the_full_smoke_test_passes PASSED [ 46%]
+tests/integration/test_infrastructure.py::test_every_target_becomes_healthy PASSED [ 53%]
+tests/integration/test_infrastructure.py::test_each_role_can_read_only_its_own_secret PASSED [ 61%]
+tests/integration/test_infrastructure.py::test_real_database_has_no_backups_and_no_public_address PASSED [ 69%]
+tests/integration/test_infrastructure.py::test_database_port_is_not_reachable_from_this_computer PASSED [ 76%]
+tests/integration/test_infrastructure.py::test_instances_answer_only_through_the_load_balancer[weather] PASSED [ 84%]
+tests/integration/test_infrastructure.py::test_instances_answer_only_through_the_load_balancer[advisor] PASSED [ 92%]
+tests/integration/test_infrastructure.py::test_tls_certificate_verifies_against_the_rds_bundle PASSED [100%]
+
+================ 13 passed, 45 deselected in 103.71s (0:01:43) =================

@@ -1,0 +1,16 @@
+Found credentials in shared credentials file: ~/.aws/credentials
+== Auto Scaling Groups (this also terminates their instances) ==
+Deleted Auto Scaling Group itmo-444-544-weather-asg
+Deleted Auto Scaling Group itmo-444-544-advisor-asg
+== Load balancer and target groups ==
+Deleted load balancer itmo-444-544-weather-alb
+Deleted target group itmo-444-544-weather-tg
+Deleted target group itmo-444-544-advisor-tg
+== Security groups ==
+Deleted security group sg-00827c68e38b3a27f
+== Launch templates and IAM ==
+Deleted launch template itmo-444-544-weather-lt
+Removed weather role and instance profile.
+Deleted launch template itmo-444-544-advisor-lt
+Removed advisor role and instance profile.
+Weather stack removed. The Gemini key parameter and the database were left in place.

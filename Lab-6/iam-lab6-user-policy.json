@@ -1,0 +1,49 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Lab6Database",
+      "Effect": "Allow",
+      "Action": [
+        "rds:CreateDBInstance",
+        "rds:DeleteDBInstance",
+        "rds:DescribeDBInstances",
+        "rds:DescribeDBSnapshots",
+        "rds:DeleteDBSnapshot",
+        "rds:DescribeDBInstanceAutomatedBackups",
+        "rds:DeleteDBInstanceAutomatedBackup",
+        "rds:CreateDBSubnetGroup",
+        "rds:DeleteDBSubnetGroup",
+        "rds:DescribeDBSubnetGroups",
+        "rds:AddTagsToResource",
+        "rds:ListTagsForResource"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Lab6Secrets",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:PutParameter",
+        "ssm:GetParameter",
+        "ssm:DeleteParameter"
+      ],
+      "Resource": "arn:aws:ssm:us-east-2:225989339862:parameter/itmo-444-544/*"
+    },
+    {
+      "Sid": "Lab6ListSecrets",
+      "Effect": "Allow",
+      "Action": "ssm:DescribeParameters",
+      "Resource": "*"
+    },
+    {
+      "Sid": "Lab6RdsServiceRole",
+      "Effect": "Allow",
+      "Action": "iam:CreateServiceLinkedRole",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": { "iam:AWSServiceName": "rds.amazonaws.com" }
+      }
+    }
+  ]
+}

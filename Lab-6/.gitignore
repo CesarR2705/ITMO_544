@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+node_modules/
+*.pem
+stack_outputs.json
+stack_outputs.env
+db_outputs.json
+db_outputs.env

@@ -1,0 +1,21 @@
+Found credentials in shared credentials file: ~/.aws/credentials
+== Checking the Gemini key and the database ==
+== IAM roles and instance profiles ==
+weather role and instance profile are ready.
+advisor role and instance profile are ready.
+Waiting 15s for IAM propagation...
+== Default VPC and subnets in both AZs ==
+== Security groups ==
+Created ALB security group sg-00827c68e38b3a27f
+== Target groups and the load balancer (the ALB comes first this time) ==
+Waiting for the ALB to become active...
+== Launch templates (the advisor needs the ALB address) ==
+Created launch template itmo-444-544-weather-lt
+Created launch template itmo-444-544-advisor-lt
+== Auto Scaling Groups (these launch the instances) ==
+Created Auto Scaling Group itmo-444-544-weather-asg
+Created Auto Scaling Group itmo-444-544-advisor-asg
+
+Weather: http://itmo-444-544-weather-alb-97492636.us-east-2.elb.amazonaws.com:8080/weather?zip=60616
+Advisor: http://itmo-444-544-weather-alb-97492636.us-east-2.elb.amazonaws.com:8081/
+Give the target groups 2 to 3 minutes to report healthy, then run: pytest -m integration

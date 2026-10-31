@@ -1,0 +1,13 @@
+PASS weather tier returns a forecast status 200
+PASS a repeat call is answered from the database (cache hit) cache=hit
+PASS history lists the saved lookups status 200, count=2
+PASS weather tier rejects a bad zip with 400 status 400
+PASS weather tier returns 404 for an unknown zip status 404
+PASS advisor tier returns clothing advice status 200, 0.8s
+   source=gemini model=gemini-3.5-flash-lite
+   advice: Wear a jacket since the temperature is 52 degrees and there are rain showers. You should also be prepared for winds around 10 mph.
+PASS advice came from Gemini (not the fallback) fallback means the key, quota or model name needs a look
+PASS advisor tier rejects a bad zip with 400 status 400
+PASS advisor home page loads status 200
+
+9 of 9 checks passed

@@ -1,0 +1,15 @@
+Found credentials in shared credentials file: ~/.aws/credentials
+== Default VPC and subnets in both AZs ==
+== Database security group ==
+Created database security group sg-080c34b5f9b3c1e9d
+== DB subnet group ==
+Created DB subnet group itmo-444-544-weather-db-subnets
+== Database password (random, never printed) ==
+Stored a new random password in /itmo-444-544/db-password
+== The PostgreSQL instance ==
+Asked RDS to create itmo-444-544-weather-db
+Waiting for the database to become available (usually 5 to 10 minutes)...
+
+Done. Database endpoint: itmo-444-544-weather-db.czmc82suya6j.us-east-2.rds.amazonaws.com
+Automated backups are OFF (retention 0) and no final snapshot will be taken on delete.
+Next: python create_weather_stack.py. When testing is finished: python delete_weather_stack.py, then python delete_database.py
