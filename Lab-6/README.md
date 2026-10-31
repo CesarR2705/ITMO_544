@@ -2,7 +2,7 @@
 
 ## What moto could not prove, and which integration test covers each gap
 
-Moto proved that my code asks AWS for the right things: the database request has BackupRetentionPeriod=0, the rule names the app security group and no CIDR range, each role's policy names exactly one parameter, the ALB exists before the launch templates, and create and delete are safe to repeat. What it can't prove is that any of that behaves the way the request says, because moto stores what it is given and hands it back.
+Moto proved that the code asks AWS for the right things, like if the database request has BackupRetentionPeriod=0, the rule names the app security group and no CIDR range, each role's policy names exactly one parameter, the ALB exists before the launch templates, and create and delete are safe to repeat. What it can't prove is that any of that behaves the way the request says, because moto stores what it is given and hands it back.
 
 - **Real backups.** A retention of 0 in moto is only a saved number. No backup system exists there to turn off. test_real_database_has_no_backups_and_no_public_address asks real RDS for the setting, the snapshots, and the automated backups.
   
